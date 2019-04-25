@@ -7,7 +7,8 @@
                         <h4 class="title">New Incident</h4>
                     </div>
                     <div class="content">
-                        <form>
+                        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                           
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -18,13 +19,18 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Requested by</label>
-                                        <input type="text" class="form-control" placeholder="Requested by" value="mofallas">
+                                        <input type="text" formControlName="requestedBy" class="form-control" placeholder="Requested by" value="mofallas" [ngClass]="{ 'is-invalid': submitted && f.requestedBy.errors }" />
+                                        <div *ngIf="submitted && f.requestedBy.errors" class="invalid-feedback">
+                                            <div *ngIf="f.requestedBy.errors.required">Requested by is required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                    <label>Email</label>
+                                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                                     </div>
                                 </div>
                             </div>
@@ -33,13 +39,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Cellphone</label>
-                                        <input type="tel" class="form-control" placeholder="Cellphone" value="83266750">
+                                        <input type="tel" class="form-control" placeholder="Cellphone" value="83266750" formControlName="cellphone"[ngClass]="{ 'is-invalid': submitted && f.cellphone.errors }" />
+                                        <div *ngIf="submitted && f.cellphone.errors" class="invalid-feedback">
+                                            <div *ngIf="f.cellphone.errors.required">Cellphone is required</div>
+                                            <div *ngIf="f.cellphone.errors.minLength">Add a valid number</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Ask for</label>
-                                        <input type="text" class="form-control" placeholder="Name for" value="Moises Fallas Navarrete">
+                                        <input type="text" class="form-control" placeholder="Name for" value="Moises Fallas Navarrete" formControlName="askFor" [ngClass]="{ 'is-invalid': submitted && f.askFor.errors }"/> 
+                                        <div *ngIf="submitted && f.askFor.errors" class="invalid-feedback">
+                                            <div *ngIf="f.askFor.errors.required">Ask for is required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
